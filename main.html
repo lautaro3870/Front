@@ -13,8 +13,8 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">M&N</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,25 +23,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Reserva<span
+                            class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link" href="#">Disabled</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -51,19 +40,132 @@
         </div>
     </nav>
 
-    <div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Nueva Reserva</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Ingreso</label>
+                                <input type="date" class="form-control" id="txtIngreso" placeholder="Ingreso">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Egreso</label>
+                                <input type="date" class="form-control" id="txtEgreso" placeholder="Egreso">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label>Monto</label>
+                                <input type="text" class="form-control" id="txtMonto" placeholder="Monto">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Seña</label>
+                                <input type="text" class="form-control" id="txtSeña" placeholder="Seña">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Acompañantes</label>
+                                <input type="number" class="form-control" id="txtAcompa" placeholder="Acompañantes">
+                            </div>
+                        </div>
+
+                        <h4>Datos Persona</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Apellido</label>
+                                <input type="text" class="form-control" id="txtApellido" placeholder="Apellido">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>DNI</label>
+                                <input type="text" class="form-control" id="txtDni" placeholder="DNI">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Edad</label>
+                                <input type="number" class="form-control" id="txtEdad" placeholder="Edad">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Localidad</label>
+                                <input type="text" class="form-control" id="txtLocalidad" placeholder="Localidad">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Telefono</label>
+                                <input type="text" class="form-control" id="txtTelefono" placeholder="Telefono">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="txtEmail" placeholder="Email">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Unidad</label>
+                                <select id="txtUnidad" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Origen</label>
+                                <select id="txtOrigen" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            <textarea name="txtObs" class="form-control" id="txtObs" cols="30" rows="5"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="registrar" class="btn btn-primary">Registrar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <button id="actualizar" class="btn btn-primary">Actualizar</button>
+
+    <div class="container-fluid">
         <br>
-        <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <table id="example" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Monto total</th>
                     <th>Ingreso</th>
                     <th>Egreso</th>
                     <th>Nombre</th>
+                    <th>Localidad</th>
                     <th>DNI</th>
+                    <th>Email</th>
                     <th>Unidad</th>
+                    <th>Origen</th>
+                    <th>Observaciones</th>
                 </tr>
             </thead>
+            <tbody>
+            </tbody>
         </table>
     </div>
 
@@ -72,7 +174,18 @@
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
 
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
     <script src="main.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
