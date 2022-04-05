@@ -156,15 +156,23 @@ const cantNoches = document.getElementById("txtEgreso");
 //   something(this.value);
 // });
 cantNoches.addEventListener("input", () => {
-  // log.textContent = e.srcElement.value;
-  document.getElementById("txtCantNoches").innerHTML = "";
-  var fecha1 = moment(document.getElementById("txtIngreso").value);
-  var fecha2 = moment(document.getElementById("txtEgreso").value);
-  var noches = fecha2.diff(fecha1, "days");
+  var date_1 = new Date(document.getElementById("txtIngreso").value);
+  var date_2 = new Date(document.getElementById("txtEgreso").value);
 
-  console.log(noches);
-  $("#txtCantNoches").append(noches);
-  document.getElementById("txtCantNoches").innerHTML = noches;
+  var day_as_milliseconds = 86400000;
+  var diff_in_millisenconds = date_2 - date_1;
+  var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
+
+  console.log(diff_in_days);
+
+  // document.getElementById("txtCantNoches").innerHTML = "";
+  // var fecha1 = moment(document.getElementById("txtIngreso").value);
+  // var fecha2 = moment(document.getElementById("txtEgreso").value);
+  // var noches = fecha2.diff(fecha1, "days");
+
+  // console.log(noches);
+  // $("#txtCantNoches").append(noches);
+  document.getElementById("txtCantNoches").innerHTML = diff_in_days;
 });
 
 let buscar = document.getElementById("buscar");
