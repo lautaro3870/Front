@@ -121,11 +121,62 @@ function getTabla() {
   $.ajax({
     url: "https://gestor-reserva.herokuapp.com/api/reserva",
     success: function (data) {
-      if (data == null) {
-        alert("NUlll");
-      }
       var o = data; //A la variable le asigno el json decodificado
       console.log(o);
+      tabla = $("#example").DataTable({
+        data: o,
+        searching: true,
+        columns: [
+          { data: "montoTotal" },
+          { data: "ingreso" },
+          { data: "egreso" },
+          { data: "nombre" },
+          { data: "localidad" },
+          { data: "dni" },
+          { data: "email" },
+          { data: "unidad" },
+          { data: "origen" },
+          { data: "observaciones" },
+          {
+            defaultContent: "<button>Mas info</button>",
+          },
+        ],
+      });
+      //tabla.destroy();
+    },
+
+    error: function (error) {
+      alert("No hay Reservas");
+    },
+  });
+}
+
+const cantNoches = document.getElementById("txtEgreso");
+// cantNoches.addEventListener("input", function (evt) {
+//   something(this.value);
+// });
+cantNoches.addEventListener("input", () => {
+  // log.textContent = e.srcElement.value;
+  document.getElementById("txtCantNoches").innerHTML = "";
+  var fecha1 = moment(document.getElementById("txtIngreso").value);
+  var fecha2 = moment(document.getElementById("txtEgreso").value);
+  var noches = fecha2.diff(fecha1, "days");
+
+  console.log(noches);
+  $("#txtCantNoches").append(noches);
+  document.getElementById("txtCantNoches").innerHTML = noches;
+});
+
+let buscar = document.getElementById("buscar");
+buscar.addEventListener("click", (e) => {
+  e.preventDefault();
+  var unidad = document.getElementById("txtUnidad2").value;
+  $.ajax({
+    url: `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}`,
+    success: function (data) {
+      var o = data; //A la variable le asigno el json decodificado
+      console.log(o);
+      tabla.destroy();
       tabla = $("#example").DataTable({
         fixedHeader: true,
         data: o,
@@ -140,44 +191,14 @@ function getTabla() {
           { data: "unidad" },
           { data: "origen" },
           { data: "observaciones" },
+          {
+            defaultContent: "<button>Mas info</button>",
+          },
         ],
       });
-      tabla.destroy();
     },
     error: function (error) {
       alert("No hay Reservas");
     },
   });
-}
-
-// let actualizar = document.getElementById("actualizar");
-// actualizar.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   $.ajax({
-//     url: "https://gestor-reserva.herokuapp.com/api/reserva",
-//     success: function (data) {
-//       var o = data; //A la variable le asigno el json decodificado
-//       console.log(o);
-//       tabla.destroy();
-//       tabla = $("#example").DataTable({
-//         fixedHeader: true,
-//         data: o,
-//         columns: [
-//           { data: "montoTotal" },
-//           { data: "ingreso" },
-//           { data: "egreso" },
-//           { data: "nombre" },
-//           { data: "localidad" },
-//           { data: "dni" },
-//           { data: "email" },
-//           { data: "unidad" },
-//           { data: "origen" },
-//           { data: "observaciones" },
-//         ],
-//       });
-//     },
-//     error: function (error) {
-//       alert("No hay Reservas");
-//     },
-//   });
-// });
+});
