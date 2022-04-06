@@ -42,23 +42,6 @@ function cargarComboOrigen(datos) {
   }
 }
 
-var inputfocused = "";
-var elements = document.querySelectorAll(
-  "input[type='text'],input[type='number']"
-);
-// Por cada input field le añadimos una funcion 'onFocus'
-for (var i = 0; i < elements.length; i++) {
-  elements[i].addEventListener("click", function () {
-    // Guardamos la ID del elemento al que hacemos 'focus'
-    inputfocused = this;
-  });
-}
-
-function limipar() {
-  //Utilizamos el elemento al que hacemos focus para borrar el campo.
-  inputfocused.value = "";
-}
-
 let registrar = document.getElementById("registrar");
 registrar.addEventListener("click", (e) => {
   var unidad = document.getElementById("txtUnidad");
@@ -85,6 +68,7 @@ registrar.addEventListener("click", (e) => {
     cantidadAcompaniantes: document.getElementById("txtAcompa").value,
     observaciones: document.getElementById("txtObs").value,
     idOrigen: origenSeleccionado,
+    noches: document.getElementById("txtCantNoches").value,
     activo: true,
   };
   console.log(data);
@@ -110,7 +94,7 @@ registrar.addEventListener("click", (e) => {
       console.log(data);
     });
   getTabla();
-  limipar();
+  document.getElementById("formulario").reset();
 });
 
 $(document).ready(function () {
@@ -127,6 +111,7 @@ function getTabla() {
         data: o,
         searching: true,
         columns: [
+          { data: "idReserva" },
           { data: "montoTotal" },
           { data: "ingreso" },
           { data: "egreso" },
@@ -136,13 +121,14 @@ function getTabla() {
           { data: "email" },
           { data: "unidad" },
           { data: "origen" },
-          { data: "observaciones" },
           {
-            defaultContent: "<button>Mas info</button>",
+            defaultContent:
+              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
+              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
           },
         ],
       });
-      //tabla.destroy();
+      tabla.destroy();
     },
 
     error: function (error) {
@@ -151,28 +137,60 @@ function getTabla() {
   });
 }
 
-const cantNoches = document.getElementById("txtEgreso");
-// cantNoches.addEventListener("input", function (evt) {
-//   something(this.value);
+// $("#example").on("click", "tr", function () {
+//   var idEliminado = $("td", this).eq(0).text();
+//   alert(idEliminado);
 // });
+
+// $("#example tbody").on("click", "td", function () {
+//   alert(table.cell(this).data());
+// });
+
+$("#example").on("click", "tr", function () {
+  var id = $("td", this).eq(0).text();
+
+  fetch(`https://gestor-reserva.herokuapp.com/api/reserva?idReserva=${id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      document.getElementById("txtNombre2").value = data[0].nombre;
+      document.getElementById("txtApellido2").value = data[0].apellido;
+      document.getElementById("txtMonto2").value = data[0].montoTotal;
+      // document.getElementById("txtIngreso2").value = data[0].ingreso;
+      // document.getElementById("txtEgreso2").value = data[0].egreso;
+      document.getElementById("txtDni2").value = data[0].dni;
+      document.getElementById("txtSeña2").value = data[0].senia;
+
+      document.getElementById("txtLocalidad2").value = data[0].localidad;
+      document.getElementById("txtEdad2").value = data[0].edad;
+      document.getElementById("txtEmail2").value = data[0].email;
+      document.getElementById("txtTelefono2").value = data[0].telefono;
+
+      // document.getElementById("txtUnidad").value = data[0].idUnidad;
+      // document.getElementById("txtOrigen").value = data[0].idOrigen;
+      document.getElementById("txtAcompa2").value =
+        data[0].cantidadAcompaniantes;
+      document.getElementById("txtObs2").value = data[0].observaciones;
+      document.getElementById("txtCantNoches2").value = data[0].noches;
+    });
+
+  $("#exampleModalInfo").modal("show");
+});
+
+var diff_in_days;
+
+const cantNoches = document.getElementById("txtEgreso");
 cantNoches.addEventListener("input", () => {
   var date_1 = new Date(document.getElementById("txtIngreso").value);
   var date_2 = new Date(document.getElementById("txtEgreso").value);
 
   var day_as_milliseconds = 86400000;
   var diff_in_millisenconds = date_2 - date_1;
-  var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
+  diff_in_days = diff_in_millisenconds / day_as_milliseconds;
 
   console.log(diff_in_days);
-
-  // document.getElementById("txtCantNoches").innerHTML = "";
-  // var fecha1 = moment(document.getElementById("txtIngreso").value);
-  // var fecha2 = moment(document.getElementById("txtEgreso").value);
-  // var noches = fecha2.diff(fecha1, "days");
-
-  // console.log(noches);
-  // $("#txtCantNoches").append(noches);
   document.getElementById("txtCantNoches").innerHTML = diff_in_days;
+  document.getElementById("txtCantNoches").value = diff_in_days;
 });
 
 let buscar = document.getElementById("buscar");
@@ -189,6 +207,7 @@ buscar.addEventListener("click", (e) => {
         fixedHeader: true,
         data: o,
         columns: [
+          { data: "idReserva" },
           { data: "montoTotal" },
           { data: "ingreso" },
           { data: "egreso" },
@@ -198,9 +217,10 @@ buscar.addEventListener("click", (e) => {
           { data: "email" },
           { data: "unidad" },
           { data: "origen" },
-          { data: "observaciones" },
           {
-            defaultContent: "<button>Mas info</button>",
+            defaultContent:
+              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
+              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
           },
         ],
       });

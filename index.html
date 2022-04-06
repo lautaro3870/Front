@@ -40,6 +40,8 @@
         </div>
     </nav>
 
+
+
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -52,7 +54,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formulario">
                         <div class="form-row">
                             <div class="form-group col-md-5">
                                 <label>Ingreso</label>
@@ -64,7 +66,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Noches</label>
-                                <label id="txtCantNoches" class="form-control" for=""></label>
+                                <input id="txtCantNoches" disabled class="form-control" for=""></input>
                                 <!-- <input type="text" value="0" disabled class="form-control" id="txtCantNoches"> -->
                             </div>
                         </div>
@@ -149,6 +151,88 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="exampleModalInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Datos Reserva</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formulario">
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label>Noches</label>
+                                <input id="txtCantNoches2" disabled class="form-control" for=""></input>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Monto</label>
+                                <input type="text" class="form-control" id="txtMonto2" placeholder="Monto">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Seña</label>
+                                <input type="text" class="form-control" id="txtSeña2" placeholder="Seña">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Acompañantes</label>
+                                <input type="number" class="form-control" id="txtAcompa2" placeholder="Acompañantes">
+                            </div>
+                        </div>
+                        <h4>Datos Persona</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" id="txtNombre2" placeholder="Nombre">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Apellido</label>
+                                <input type="text" class="form-control" id="txtApellido2" placeholder="Apellido">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>DNI</label>
+                                <input type="text" class="form-control" id="txtDni2" placeholder="DNI">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Edad</label>
+                                <input type="number" class="form-control" id="txtEdad2" placeholder="Edad">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Localidad</label>
+                                <input type="text" class="form-control" id="txtLocalidad2" placeholder="Localidad">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Telefono</label>
+                                <input type="text" class="form-control" id="txtTelefono2" placeholder="Telefono">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="txtEmail2" placeholder="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            <textarea name="txtObs" class="form-control" id="txtObs2" cols="30" rows="5"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <br>
 
     <form action="">
@@ -174,6 +258,7 @@
             <table id="example" class="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Monto total</th>
                         <th>Ingreso</th>
                         <th>Egreso</th>
@@ -183,7 +268,6 @@
                         <th>Email</th>
                         <th>Unidad</th>
                         <th>Origen</th>
-                        <th>Observaciones</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -211,6 +295,7 @@
 
     <script src="main.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
 
 </body>
 
