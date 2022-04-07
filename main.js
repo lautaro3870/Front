@@ -73,14 +73,6 @@ registrar.addEventListener("click", (e) => {
   };
   console.log(data);
 
-  Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Insercion Exitosa",
-    showConfirmButton: false,
-    timer: 1500,
-  });
-
   fetch(url, {
     method: "POST", // or 'PUT'
     body: JSON.stringify(data), // data can be `string` or {object}!
@@ -89,12 +81,28 @@ registrar.addEventListener("click", (e) => {
     },
   })
     .then((res) => res)
-    //.catch((error) => console.error("Error:", error))
     .then((data) => {
-      console.log(data);
+      if (data.status != 200) {
+        Swal.fire({
+          icon: "error",
+          title: "No se pudo insertar",
+          timer: 1500,
+        });
+        return false;
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Insercion Exitosa",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(data);
+        document.getElementById("formulario").reset();
+        $("#exampleModal").modal("hide");
+      }
     });
   getTabla2();
-  document.getElementById("formulario").reset();
 });
 
 $(document).ready(function () {
