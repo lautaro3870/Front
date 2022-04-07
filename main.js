@@ -401,6 +401,7 @@ $(document).on("click", "#btnEditar", function (e) {
             showConfirmButton: false,
             timer: 1500,
           });
+          getTabla2();
         } else {
           Swal.fire({
             icon: "error",
