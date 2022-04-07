@@ -204,7 +204,7 @@ $(document).on("click", "#btnEliminar", function (e) {
       // getTabla();
     } else if (result.isDenied) {
       Swal.fire("Ficha no eliminada", "", "info");
-      getTabla();
+      getTabla2();
     }
   });
 });
