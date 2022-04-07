@@ -71,6 +71,8 @@ registrar.addEventListener("click", (e) => {
     observaciones: document.getElementById("txtObs").value,
     idOrigen: origenSeleccionado,
     noches: document.getElementById("txtCantNoches").value,
+    saldo: document.getElementById("txtSaldo").value,
+    cochera: document.getElementById("txtCochera").checked,
     activo: true,
   };
   console.log(data);
@@ -125,6 +127,7 @@ function getTabla() {
           { data: "montoTotal" },
           { data: "ingreso" },
           { data: "egreso" },
+          { data: "unidad" },
           { data: "saldo" },
           { data: "nombre" },
           { data: "observaciones" },
@@ -159,6 +162,7 @@ function getTabla2() {
           { data: "montoTotal" },
           { data: "ingreso" },
           { data: "egreso" },
+          { data: "unidad" },
           { data: "saldo" },
           { data: "nombre" },
           { data: "observaciones" },
