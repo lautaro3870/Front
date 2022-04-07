@@ -6,20 +6,22 @@ fetch("https://gestor-reserva.herokuapp.com/api/unidades")
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
-    cargarComboUnidades(data);
+    cargarComboUnidades(data, "txtUnidad");
+    cargarComboUnidades(data, "txtUnidad3");
   });
 
 fetch("https://gestor-reserva.herokuapp.com/api/origenreserva")
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
-    cargarComboOrigen(data);
+    cargarComboOrigen(data, "txtOrigen");
+    cargarComboOrigen(data, "txtOrigen3");
   });
 
-function cargarComboUnidades(datos) {
+function cargarComboUnidades(datos, idCombo) {
   var html = "<option value=''>Seleccione</option>";
-  $("#txtUnidad").append(html);
-  select = document.getElementById("txtUnidad");
+  $(`#${idCombo}`).append(html);
+  select = document.getElementById(idCombo);
   for (let i = 0; i < datos.length; i++) {
     var option = document.createElement("option");
     option.value = datos[i].idUnidad;
@@ -29,10 +31,10 @@ function cargarComboUnidades(datos) {
   }
 }
 
-function cargarComboOrigen(datos) {
+function cargarComboOrigen(datos, idCombo) {
   var html = "<option value=''>Seleccione</option>";
-  $("#txtOrigen").append(html);
-  select = document.getElementById("txtOrigen");
+  $(`#${idCombo}`).append(html);
+  select = document.getElementById(idCombo);
   for (let i = 0; i < datos.length; i++) {
     var option = document.createElement("option");
     option.value = datos[i].idOrigen;
@@ -123,17 +125,15 @@ function getTabla() {
           { data: "montoTotal" },
           { data: "ingreso" },
           { data: "egreso" },
+          { data: "saldo" },
           { data: "nombre" },
-          { data: "localidad" },
-          { data: "dni" },
-          { data: "email" },
-          { data: "unidad" },
-          { data: "origen" },
+          { data: "observaciones" },
           {
             data: null,
             defaultContent:
-              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
-              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
+              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-secondary'><box-icon name='info-circle'></button>" +
+              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
+              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
           },
         ],
       });
@@ -159,17 +159,15 @@ function getTabla2() {
           { data: "montoTotal" },
           { data: "ingreso" },
           { data: "egreso" },
+          { data: "saldo" },
           { data: "nombre" },
-          { data: "localidad" },
-          { data: "dni" },
-          { data: "email" },
-          { data: "unidad" },
-          { data: "origen" },
+          { data: "observaciones" },
           {
             data: null,
             defaultContent:
-              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
-              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
+              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-secondary'><box-icon name='info-circle'></button>" +
+              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
+              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
           },
         ],
       });
@@ -250,7 +248,6 @@ $(document).on("click", "#btnInfo", function (e) {
 });
 
 var diff_in_days;
-
 const cantNoches = document.getElementById("txtEgreso");
 cantNoches.addEventListener("input", () => {
   var date_1 = new Date(document.getElementById("txtIngreso").value);
@@ -300,8 +297,9 @@ buscar.addEventListener("click", (e) => {
           {
             data: null,
             defaultContent:
-              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
-              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
+              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-secondary'><box-icon name='info-circle'></button>" +
+              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
+              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
           },
         ],
       });
@@ -310,4 +308,122 @@ buscar.addEventListener("click", (e) => {
       alert("No hay Reservas");
     },
   });
+});
+
+let editar = document.getElementById("btnEditar");
+
+$(document).on("click", "#btnEditar", function (e) {
+  e.preventDefault();
+  idEditar = $(this).parent().parent().children().first().text();
+
+  fetch(`https://gestor-reserva.herokuapp.com/api/reserva/${idEditar}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      document.getElementById("txtNombre3").value = data.nombre;
+      document.getElementById("txtApellido3").value = data.apellido;
+      document.getElementById("txtMonto3").value = data.montoTotal;
+      let ingreso = data.ingreso;
+      let ingresoConvertido = dayjs(ingreso).format("YYYY-MM-DD");
+      let egreso = data.egreso;
+      let egresoConvertido = dayjs(egreso).format("YYYY-MM-DD");
+      document.getElementById("txtIngreso3").value = ingresoConvertido;
+      document.getElementById("txtEgreso3").value = egresoConvertido;
+      document.getElementById("txtDni3").value = data.dni;
+      document.getElementById("txtSeña3").value = data.senia;
+      document.getElementById("txtLocalidad3").value = data.localidad;
+      document.getElementById("txtEdad3").value = data.edad;
+      document.getElementById("txtEmail3").value = data.email;
+      document.getElementById("txtTelefono3").value = data.telefono;
+      document.getElementById("txtUnidad3").value = data.idUnidad;
+      document.getElementById("txtOrigen3").value = data.idOrigen;
+      document.getElementById("txtAcompa3").value = data.cantidadAcompaniantes;
+      document.getElementById("txtObs3").value = data.observaciones;
+      document.getElementById("txtCantNoches3").value = data.noches;
+      document.getElementById("txtSaldo3").value = data.saldo;
+      if (data.cochera) {
+        document.getElementById("txtCochera3").checked = true;
+      } else {
+        document.getElementById("txtCochera3").checked = false;
+      }
+    });
+
+  let editar = document.getElementById("editar");
+  editar.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    var unidad = document.getElementById("txtUnidad3");
+    var unidadSeleccionada = unidad.options[unidad.selectedIndex].value;
+
+    var origen = document.getElementById("txtOrigen3");
+    var origenSeleccionado = origen.options[origen.selectedIndex].value;
+
+    var datos = {
+      idReserva: idEditar,
+      montoTotal: document.getElementById("txtMonto3").value,
+      ingreso: document.getElementById("txtIngreso3").value,
+      egreso: document.getElementById("txtEgreso3").value,
+      senia: document.getElementById("txtSeña3").value,
+      nombre: document.getElementById("txtNombre3").value,
+      apellido: document.getElementById("txtApellido3").value,
+      dni: document.getElementById("txtDni3").value,
+      localidad: document.getElementById("txtLocalidad3").value,
+      edad: document.getElementById("txtEdad3").value,
+      email: document.getElementById("txtEmail3").value,
+      telefono: document.getElementById("txtTelefono3").value,
+      idUnidad: unidadSeleccionada,
+      cantidadAcompaniantes: document.getElementById("txtAcompa3").value,
+      observaciones: document.getElementById("txtObs3").value,
+      idOrigen: origenSeleccionado,
+      noches: document.getElementById("txtCantNoches3").value,
+      saldo: document.getElementById("txtSaldo3").value,
+      cochera: document.getElementById("txtSaldo3").checked,
+      activo: true,
+    };
+    console.log(datos);
+
+    var url = "https://gestor-reserva.herokuapp.com/api/reserva/";
+    fetch(url, {
+      method: "PUT", // or 'PUT'
+      body: JSON.stringify(datos), // data can be `string` or {object}!
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res)
+      //.catch((error) => console.error("Error:", error))
+      .then((data) => {
+        if (data.status == 200) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Modificacion Exitosa",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Complete los campos",
+          });
+          return false;
+        }
+        //console.log("Success:", response)
+      });
+  });
+});
+
+var diff_in_days2;
+const cantNoches2 = document.getElementById("txtEgreso3");
+cantNoches2.addEventListener("input", () => {
+  var date_1 = new Date(document.getElementById("txtIngreso3").value);
+  var date_2 = new Date(document.getElementById("txtEgreso3").value);
+
+  var day_as_milliseconds = 86400000;
+  var diff_in_millisenconds = date_2 - date_1;
+  diff_in_days2 = diff_in_millisenconds / day_as_milliseconds;
+
+  console.log(diff_in_days2);
+  document.getElementById("txtCantNoches3").innerHTML = diff_in_days2;
+  document.getElementById("txtCantNoches3").value = diff_in_days2;
 });

@@ -61,22 +61,25 @@
                             <div class="form-group col-md-2">
                                 <label>Noches</label>
                                 <input id="txtCantNoches" disabled class="form-control" for=""></input>
-                                <!-- <input type="text" value="0" disabled class="form-control" id="txtCantNoches"> -->
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label>Monto</label>
                                 <input type="text" class="form-control" id="txtMonto" placeholder="Monto">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label>Seña</label>
                                 <input type="text" class="form-control" id="txtSeña" placeholder="Seña">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label>Acompañantes</label>
-                                <input type="number" class="form-control" id="txtAcompa" placeholder="Acompañantes">
+                                <input type="number" class="form-control" id="txtAcompa">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Cochera</label>
+                                <input type="checkbox" class="form-check-inline" id="txtCochera">
                             </div>
                         </div>
 
@@ -112,9 +115,15 @@
                                 <input type="text" class="form-control" id="txtTelefono" placeholder="Telefono">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" id="txtEmail" placeholder="Email">
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="txtEmail" placeholder="Email">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Saldo</label>
+                                <input type="number" class="form-control" id="txtSaldo" placeholder="Saldo">
+                            </div>
                         </div>
 
                         <div class="form-row">
@@ -139,6 +148,126 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="registrar" class="btn btn-primary">Registrar</button>
+                    <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Editar -->
+    <div class="modal fade" id="exampleModalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Reserva</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formulario">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label>Ingreso</label>
+                                <input type="date" class="form-control" id="txtIngreso3" placeholder="Ingreso">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label>Egreso</label>
+                                <input type="date" class="form-control" id="txtEgreso3" placeholder="Egreso">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Noches</label>
+                                <input id="txtCantNoches3" disabled class="form-control" for=""></input>
+                                <!-- <input type="text" value="0" disabled class="form-control" id="txtCantNoches"> -->
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label>Monto</label>
+                                <input type="text" class="form-control" id="txtMonto3" placeholder="Monto">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Seña</label>
+                                <input type="text" class="form-control" id="txtSeña3" placeholder="Seña">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Acompañantes</label>
+                                <input type="number" class="form-control" id="txtAcompa3">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Cochera</label>
+                                <input type="checkbox" class="form-check-inline" id="txtCochera3">
+                            </div>
+                        </div>
+
+                        <h4>Datos Persona</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" id="txtNombre3" placeholder="Nombre">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Apellido</label>
+                                <input type="text" class="form-control" id="txtApellido3" placeholder="Apellido">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>DNI</label>
+                                <input type="text" class="form-control" id="txtDni3" placeholder="DNI">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Edad</label>
+                                <input type="number" class="form-control" id="txtEdad3" placeholder="Edad">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Localidad</label>
+                                <input type="text" class="form-control" id="txtLocalidad3" placeholder="Localidad">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Telefono</label>
+                                <input type="text" class="form-control" id="txtTelefono3" placeholder="Telefono">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="txtEmail3" placeholder="Email">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Saldo</label>
+                                <input type="number" class="form-control" id="txtSaldo3" placeholder="Saldo">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Unidad</label>
+                                <select id="txtUnidad3" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Origen</label>
+                                <select id="txtOrigen3" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            <textarea name="txtObs3" class="form-control" id="txtObs3" cols="30" rows="5"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="editar" class="btn btn-primary">Editar</button>
                     <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> -->
                 </div>
             </div>
@@ -256,7 +385,7 @@
         </div>
     </form>
 
-    <div class="container-fluid">
+    <div class="container">
         <div>
 
             <br>
@@ -267,12 +396,9 @@
                         <th>Monto total</th>
                         <th>Ingreso</th>
                         <th>Egreso</th>
+                        <th>Saldo</th>
                         <th>Nombre</th>
-                        <th>Localidad</th>
-                        <th>DNI</th>
-                        <th>Email</th>
-                        <th>Unidad</th>
-                        <th>Origen</th>
+                        <th>Observaciones</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -301,7 +427,8 @@
     <script src="main.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
-
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script>dayjs().format()</script>
 </body>
 
 </html>
