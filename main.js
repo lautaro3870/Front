@@ -377,7 +377,7 @@ $(document).on("click", "#btnEditar", function (e) {
       idOrigen: origenSeleccionado,
       noches: document.getElementById("txtCantNoches3").value,
       saldo: document.getElementById("txtSaldo3").value,
-      cochera: document.getElementById("txtSaldo3").checked,
+      cochera: document.getElementById("txtCochera3").checked,
       activo: true,
     };
     console.log(datos);
