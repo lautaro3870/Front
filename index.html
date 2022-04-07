@@ -26,12 +26,6 @@
                     <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Reserva<span
                             class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Disabled</a>
-                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -236,16 +230,27 @@
     <br>
 
     <form action="">
+
         <div class="form-group">
-            <div class="form-group col-md-2">
-                <label>Unidad</label>
-                <select id="txtUnidad2" class="form-control">
-                    <option value="" selected>Seleccione</option>
-                    <option value="1">Departamento 1B</option>
-                    <option value="2">Departamento 4E</option>
-                </select>
+            <div class="input-group">
+                <div class="form-group col-md-2">
+                    <label>Unidad</label>
+                    <select id="txtUnidad2" class="form-control">
+                        <option value="" selected>Seleccione</option>
+                        <option value="1">Departamento 1B</option>
+                        <option value="2">Departamento 4E</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="">Ingreso</label>
+                    <input type="date" id="fechaIngreso" class="form-control">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="">Egreso</label>
+                    <input type="date" id="fechaEgreso" class="form-control">
+                </div>
             </div>
-            <div class="form-group col-md-2">
+            <div class=" form-group col-md-2">
                 <button id="buscar" class="btn btn-primary">Buscar</button>
             </div>
         </div>

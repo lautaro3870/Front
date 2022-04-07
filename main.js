@@ -93,7 +93,7 @@ registrar.addEventListener("click", (e) => {
     .then((data) => {
       console.log(data);
     });
-  getTabla();
+  getTabla2();
   document.getElementById("formulario").reset();
 });
 
@@ -122,34 +122,98 @@ function getTabla() {
           { data: "unidad" },
           { data: "origen" },
           {
+            data: null,
             defaultContent:
               "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
               "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
           },
         ],
       });
-      tabla.destroy();
     },
-
     error: function (error) {
       alert("No hay Reservas");
     },
   });
 }
 
-// $("#example").on("click", "tr", function () {
-//   var idEliminado = $("td", this).eq(0).text();
-//   alert(idEliminado);
-// });
+function getTabla2() {
+  $.ajax({
+    url: "https://gestor-reserva.herokuapp.com/api/reserva",
+    success: function (data) {
+      var o = data; //A la variable le asigno el json decodificado
+      console.log(o);
+      tabla.destroy();
+      tabla = $("#example").DataTable({
+        data: o,
+        searching: true,
+        columns: [
+          { data: "idReserva" },
+          { data: "montoTotal" },
+          { data: "ingreso" },
+          { data: "egreso" },
+          { data: "nombre" },
+          { data: "localidad" },
+          { data: "dni" },
+          { data: "email" },
+          { data: "unidad" },
+          { data: "origen" },
+          {
+            data: null,
+            defaultContent:
+              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
+              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
+          },
+        ],
+      });
+    },
+    error: function (error) {
+      alert("No hay Reservas");
+    },
+  });
+}
 
-// $("#example tbody").on("click", "td", function () {
-//   alert(table.cell(this).data());
-// });
+$(document).on("click", "#btnEliminar", function (e) {
+  e.preventDefault();
+  idEliminado = $(this).parent().parent().children().first().text();
 
-$("#example").on("click", "tr", function () {
-  var id = $("td", this).eq(0).text();
+  Swal.fire({
+    title: "¿Desea Eliminar la Reserva?",
+    showDenyButton: true,
+    confirmButtonText: "Eliminar",
+    denyButtonText: `Cancelar`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url: `https://gestor-reserva.herokuapp.com/api/Reserva/${idEliminado}`,
+        type: "DELETE",
+        dataType: "json",
+        success: function (result) {
+          console.log(result);
+          if (result) {
+            getTabla2();
+          } else {
+            //Swal.fire(result.error);
+            console.log(result.error);
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      });
+      Swal.fire("Eliminado!", "", "success");
+      // getTabla();
+    } else if (result.isDenied) {
+      Swal.fire("Ficha no eliminada", "", "info");
+      getTabla();
+    }
+  });
+});
 
-  fetch(`https://gestor-reserva.herokuapp.com/api/reserva?idReserva=${id}`)
+$(document).on("click", "#btnInfo", function (e) {
+  e.preventDefault();
+  idInfo = $(this).parent().parent().children().first().text();
+
+  fetch(`https://gestor-reserva.herokuapp.com/api/reserva?idReserva=${idInfo}`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -193,12 +257,20 @@ cantNoches.addEventListener("input", () => {
   document.getElementById("txtCantNoches").value = diff_in_days;
 });
 
+function formato(fecha) {
+  return fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, "$3/$2/$1");
+}
+
 let buscar = document.getElementById("buscar");
 buscar.addEventListener("click", (e) => {
   e.preventDefault();
   var unidad = document.getElementById("txtUnidad2").value;
+  var entrada = document.getElementById("fechaIngreso").value;
+  var entradaConvertida = formato(entrada);
+  var salida = document.getElementById("fechaEgreso").value;
+  var salidaConvertida = formato(salida);
   $.ajax({
-    url: `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}`,
+    url: `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}&Entrada=${entradaConvertida}&Salida=${salidaConvertida}`,
     success: function (data) {
       var o = data; //A la variable le asigno el json decodificado
       console.log(o);
@@ -218,6 +290,7 @@ buscar.addEventListener("click", (e) => {
           { data: "unidad" },
           { data: "origen" },
           {
+            data: null,
             defaultContent:
               "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-primary'><box-icon name='info-circle'></button>" +
               "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>",
