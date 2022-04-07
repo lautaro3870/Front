@@ -98,11 +98,11 @@ registrar.addEventListener("click", (e) => {
           timer: 1500,
         });
         console.log(data);
+        getTabla2();
         document.getElementById("formulario").reset();
-        $("#exampleModal").modal("hide");
+        //$("#exampleModal").modal("hide");
       }
     });
-  getTabla2();
 });
 
 $(document).ready(function () {
