@@ -279,57 +279,65 @@ buscar.addEventListener("click", (e) => {
   var salida = document.getElementById("fechaEgreso").value;
   var salidaConvertida = dayjs(salida).format("MM%2FDD%2FYYYY");
 
-  // `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}&Entrada=${entradaConvertida}&Salida=${salidaConvertida}`,
-  fetch("https://gestor-reserva.herokuapp.com/api/reserva?Unidad=1", {
-    method: "GET", // or 'PUT'
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+  // // `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}&Entrada=${entradaConvertida}&Salida=${salidaConvertida}`,
+  // fetch("https://gestor-reserva.herokuapp.com/api/reserva?Unidad=1", {
+  //   method: "GET", // or 'PUT'
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => console.log(data));
 
-  // $.ajax({
-  //   //url: `https://localhost:44365/api/Reserva?Unidad=${unidad}&Entrada=${entradaConvertida}&Salida=${salidaConvertida}`,
-  //   url: `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}&Entrada=${entradaConvertida}&Salida=${salidaConvertida}`,
-  //   type: "GET",
-  //   crossDomain: true,
-  //   dataType: "jsonp",
-  //   success: function (data) {
-  //     var o = data; //A la variable le asigno el json decodificado
-  //     console.log(o);
-  //     tabla.destroy();
-  //     tabla = $("#example").DataTable({
-  //       fixedHeader: true,
-  //       data: o,
-  //       columns: [
-  //         { data: "idReserva" },
-  //         { data: "montoTotal" },
-  //         { data: "ingreso" },
-  //         { data: "egreso" },
-  //         { data: "unidad" },
-  //         { data: "saldo" },
-  //         { data: "nombre" },
-  //         { data: "observaciones" },
-  //         {
-  //           data: null,
-  //           defaultContent:
-  //             "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-secondary'><box-icon name='info-circle'></button>" +
-  //             "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
-  //             "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
-  //         },
-  //       ],
-  //     });
-  //   },
-  //   error: function (error) {
-  //     alert("No hay Reservas");
-  //   },
-  // });
+  $.ajax({
+    //url: `https://localhost:44365/api/Reserva?Unidad=${unidad}&Entrada=${entradaConvertida}&Salida=${salidaConvertida}`,
+    // url: `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}&Entrada=${entradaConvertida}&Salida=${salidaConvertida}`,
+    url: `https://gestor-reserva.herokuapp.com/api/reserva?Unidad=${unidad}`,
+    type: "GET",
+    success: function (data) {
+      var o = data; //A la variable le asigno el json decodificado
+      console.log(o);
+      tabla.destroy();
+      tabla = $("#example").DataTable({
+        fixedHeader: true,
+        data: o,
+        columns: [
+          { data: "idReserva" },
+          { data: "montoTotal" },
+          { data: "ingreso" },
+          { data: "egreso" },
+          { data: "unidad" },
+          { data: "saldo" },
+          { data: "nombre" },
+          { data: "observaciones" },
+          {
+            data: null,
+            defaultContent:
+              "<button id='btnInfo' value='idReserva' data-toggle='modal' data-target='#exampleModalInfo' class='btn btn-secondary'><box-icon name='info-circle'></button>" +
+              "<button id='btnEliminar' value='idReserva' class='btn btn-danger'><box-icon name='trash'></box-icon></button>" +
+              "<button id='btnEditar' data-toggle='modal' data-target='#exampleModalEditar' class='btn btn-primary'><box-icon name='edit'></box-icon></button>",
+          },
+        ],
+      });
+    },
+    error: function (error) {
+      Swal.fire({
+        icon: "info",
+        title: "No hay reservas",
+      });
+    },
+  });
 });
 
-let editar = document.getElementById("btnEditar");
+//boton borrar filtros
+// let borrar = document.getElementById("borrar");
+// borrar.addEventListener("click", (e) => {
+//   getTabla2();
+// });
 
+//boton editar reserva
+let editar = document.getElementById("btnEditar");
 $(document).on("click", "#btnEditar", function (e) {
   e.preventDefault();
   idEditar = $(this).parent().parent().children().first().text();
