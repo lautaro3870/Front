@@ -2,6 +2,30 @@
 //   var tabla = $("#example").DataTable({});
 // });
 
+// var img = "/to-do-notifications/img/icon-128.png";
+// var text = "¡OYE! Tu tarea  ahora está vencida.";
+// var notification = new Notification("Lista de tareas");
+
+let noti = document.getElementById("noti");
+noti.addEventListener("click", (e) => {
+  e.preventDefault();
+  Push.Permission.request();
+
+  Push.create("Hi there!", {
+    body: "This is a notification.",
+    icon: "icon.png",
+    timeout: 2000, // Timeout before notification closes automatically.
+    vibrate: [100, 100, 100], // An array of vibration pulses for mobile devices.
+    onClick: function () {
+      // Callback for when the notification is clicked.
+      console.log(this);
+    },
+  });
+});
+// document.addEventListener("visibilitychange", function () {
+
+// });
+
 fetch("https://gestor-reserva.herokuapp.com/api/unidades")
   .then((res) => res.json())
   .then((data) => {
@@ -431,6 +455,16 @@ $(document).on("click", "#btnEditar", function (e) {
             timer: 1500,
           });
           getTabla2();
+          Push.create("Hi there!", {
+            body: "Reserva editada",
+            icon: "icon.png",
+            timeout: 8000, // Timeout before notification closes automatically.
+            vibrate: [100, 100, 100], // An array of vibration pulses for mobile devices.
+            onClick: function () {
+              // Callback for when the notification is clicked.
+              console.log(this);
+            },
+          });
         } else {
           Swal.fire({
             icon: "error",
