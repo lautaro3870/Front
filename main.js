@@ -146,7 +146,7 @@ function getTabla() {
       tabla = $("#example").DataTable({
         data: o,
         searching: true,
-        order: [[2, "asc"]],
+        order: [],
         columns: [
           { data: "idReserva" },
           { data: "montoTotal" },
@@ -182,7 +182,7 @@ function getTabla2() {
       tabla = $("#example").DataTable({
         data: o,
         searching: true,
-        order: [[2, "asc"]],
+        order: [],
         columns: [
           { data: "idReserva" },
           { data: "montoTotal" },
@@ -327,7 +327,7 @@ buscar.addEventListener("click", (e) => {
       tabla.destroy();
       tabla = $("#example").DataTable({
         fixedHeader: true,
-        order: [[2, "asc"]],
+        order: [],
         data: o,
         columns: [
           { data: "idReserva" },
